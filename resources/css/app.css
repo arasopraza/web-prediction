@@ -10,4 +10,8 @@ body {
   height: 100vh; /* Adjust as needed */
 }
 
+.alert-danger {
+  margin: 10px;
+  width: fit-content;
+}
 

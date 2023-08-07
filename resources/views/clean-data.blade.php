@@ -27,10 +27,7 @@
     <div class="container">
         <div class="row" style="margin-top: 40px;">
             @if (session('message') == 'Success' )
-                @if (session('message) == 'Data yang diupload tidak sesuai')
-                    <p>File tidak sesuai</p>
-                @endif
-                <p> Tidak ada outlier atau data kosong </p>
+                <h4> Tidak ada outlier atau data kosong </h4>
                 <form action="{{ route('proses') }}" method="get">
                 @csrf
                 @if (session('message') == 'Success')
@@ -45,9 +42,9 @@
                 <table class="table table-bordered">
                     <thead>
                         <tr>
-                            <th>Curah Hujan (milimeter)</th>
-                            <th>Harga (Rp)</th>
-                            <th>Produksi (Ton)</th>
+                            <th>Curah Hujan</th>
+                            <th>Harga</th>
+                            <th>Produksi</th>
                         </tr>
                     </thead>
                     <tbody>

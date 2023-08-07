@@ -31,9 +31,9 @@
                 <table class="table table-bordered">
                     <thead>
                         <tr>
-                            <th>Curah Hujan</th>
-                            <th>Harga</th>
-                            <th>Produksi</th>
+                            <th>Curah Hujan (milimeter)</th>
+                            <th>Harga (Rp)</th>
+                            <th>Produksi (Ton)</th>
                         </tr>
                     </thead>
                     <tbody>

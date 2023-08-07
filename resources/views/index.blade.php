@@ -30,29 +30,33 @@
     </nav>
     <div class="container">
         <div class="row" style="margin-top: 40px;">
-            <!-- <div class="col-lg-6"> -->
             <form action="{{ route('upload') }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="mb-3">
                     <label for="komoditas" class="form-label">Nama Komoditas</label>
-                    <input class="form-control @error('komoditas') is-invalid @enderror" id="komoditas" type="text"
-                        name="komoditas" value="{{ old('komoditas') }}">
-                    @error('komoditas')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
+                    <select name="komoditas" id="komoditas">
+                        <option value="BawangMerah">Bawang Merah</option>
+                        <option value="CabaiMerah">Cabai Merah</option>
+                        <option value="CabaiRawit">Cabai Rawit</option>
+                    </select>
                 </div>
                 <div class="mb-3">
                     <label for="formFileSm" class="form-label">Upload Data Prediksi</label>
+                    <br><a href="{{ route('download') }}">Download Template Data</a></br>
                     <input class="form-control @error('file') is-invalid @enderror" id="formFileSm" type="file"
-                        name="file">
+                        name="file" accept=".xls, .xlsx">
                     @error('file')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
                 <button type="submit" class="btn btn-primary">Upload</button>
             </form>
+            @if(session()->has('message'))
+                <div class="alert alert-{{ session('messageType') }}" style="margin: 10px; width: fit-content;">
+                    {{ session('message') }}
+                </div>
+            @endif
         </div>
-    </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous">

@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
  
 class IndexController extends Controller
 {
@@ -15,6 +16,24 @@ class IndexController extends Controller
     public function index(): View
     {
       return view('index');
+    }
+
+    public function download()
+    {
+      $filePath = 'TemplateData.xlsx'; 
+      $fileName = 'DownloadedTemplateData.xlsx';
+  
+      // Check if file exists
+      if (!Storage::disk('public')->exists($filePath)) {
+          return response()->json(['error' => 'File not found.'], 404);
+      }
+  
+      $headers = [
+          'Content-Type' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', // For .xlsx files
+          'Content-Disposition' => "attachment; filename=\"$fileName\"",
+      ];
+  
+      return Storage::disk('public')->download($filePath, $fileName, $headers);
     }
 
     public function upload(Request $request)
@@ -35,21 +54,23 @@ class IndexController extends Controller
       ]);
 
       $message = $response->json()["message"];
-      $data = $response->json()["data"];
       $statusCode = $response->status();
 
-      if ($statusCode == 200) {
+      if ($statusCode == 200 && $message == "Upload File Sukses") {
+        $data = $response->json()["data"];
         session()->flash('message', $message);
         session()->flash('data', $data);
         session()->flash('messageType', 'success');
+        return redirect('/show')->with('data', $data)->with('komoditas', $komoditas);
       } else {
         session()->flash('message', $message);
         session()->flash('data', 'kosong');
         session()->flash('messageType', 'danger');
+        return redirect()->back();
       }
 
-      // return redirect()->back();
-      return redirect('/show')->with('data', $data)->with('komoditas', $komoditas);
+      return redirect()->back();
+      // return redirect('/show')->with('data', $data)->with('komoditas', $komoditas);
     }
 
     public function show(): View
@@ -68,10 +89,13 @@ class IndexController extends Controller
       $message = $response->json()["message"];
       if ($message == "Success get outliers") {
         return view('cleaning', ['data' => $data, 'komoditas' => $komoditas]);
+      } elseif ($message == "Success get nulls value") {
+        session()->flash('message', $message);
+        return view('null-data', ['message' => $message, 'data' => $data, 'komoditas' => $komoditas]);
       } else {
         $message = $response->json()["message"];
         session()->flash('message', $message);
-        return redirect('/show')->with('komoditas', $komoditas)->with('message', $message);
+        return view('/clean-data')->with('komoditas', $komoditas)->with('message', $message);
       }
       return view('cleaning', ['message' => $message, 'data' => $data, 'komoditas' => $komoditas]);
     }

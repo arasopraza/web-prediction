@@ -21,3 +21,4 @@ Route::get('/show', [IndexController::class, 'show']);
 Route::get('/cleaning', [IndexController::class, 'cleaning'])->name('cleaning');
 Route::get('/binning', [IndexController::class, 'binning'])->name('binning');
 Route::get('/proses', [IndexController::class, 'proses'])->name('proses');
+Route::get('/download', [IndexController::class, 'download'])->name('download');

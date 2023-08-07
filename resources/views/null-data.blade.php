@@ -26,28 +26,14 @@
     </nav>
     <div class="container">
         <div class="row" style="margin-top: 40px;">
-            @if (session('message') == 'Success' )
-                @if (session('message) == 'Data yang diupload tidak sesuai')
-                    <p>File tidak sesuai</p>
-                @endif
-                <p> Tidak ada outlier atau data kosong </p>
-                <form action="{{ route('proses') }}" method="get">
-                @csrf
-                @if (session('message') == 'Success')
-                    <input type="hidden" id="komoditas" name="komoditas" value="{{ $komoditas }}">
-                    <div class="mb-3">
-                        <button type="submit" class="btn btn-primary">Proses</button>
-                    </div>
-                @endif
-            </form>
-            @elseif (session('data'))
-            <h2>Hasil Upload Data</h2>
+          @if (session('message') == 'Success get nulls value' )
+            <h2>Data Kosong</h2>
                 <table class="table table-bordered">
                     <thead>
                         <tr>
-                            <th>Curah Hujan (milimeter)</th>
-                            <th>Harga (Rp)</th>
-                            <th>Produksi (Ton)</th>
+                            <th>Curah Hujan</th>
+                            <th>Harga</th>
+                            <th>Produksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -60,16 +46,14 @@
                         @endforeach
                     </tbody>
                 </table>
-            <form action="{{ route('cleaning') }}" method="get">
+            <form action="{{ route('proses') }}" method="get">
                 @csrf
-                @if (session('messageType') == 'success')
                     <input type="hidden" id="komoditas" name="komoditas" value="{{ $komoditas }}">
                     <div class="mb-3">
                         <button type="submit" class="btn btn-primary">Proses</button>
                     </div>
-                @endif
             </form>
-            @endif
+          @endif  
         </div>
     </div>
     </div>
