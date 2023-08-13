@@ -40,8 +40,8 @@
                         @foreach ($data as $row)
                             <tr>
                                 <td>{{ $row['Curah Hujan'] }}</td>
-                                <td>{{ $row['Harga'] }}</td>
-                                <td>{{ $row['Produksi'] }}</td>
+                                <td>{{ number_format($row['Harga'], 0, '.', '.') }}</td>
+                                <td>{{ number_format($row['Produksi'], 0, '.', '.') }}</td>
                             </tr>
                         @endforeach
                     </tbody>

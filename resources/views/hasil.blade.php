@@ -50,9 +50,23 @@
           "Desember"
         ]
       ?>
-      @foreach($data['hasil_prediksi'] as $index => $prediksi)
-        <p> {{ $bulan[$index] }}: <b>Rp. {{ floor($prediksi) }} / KG</b></p>
-      @endforeach
+
+      <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Bulan</th>
+                <th>Harga (Rp)</th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach($data['hasil_prediksi'] as $index => $prediksi)
+                <tr>
+                    <td>{{ $bulan[$index]}}</td>
+                    <td>{{ number_format($prediksi, 0, '.', '.') }}</td>
+                </tr>
+            @endforeach
+        </tbody>
+      </table>
       </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
